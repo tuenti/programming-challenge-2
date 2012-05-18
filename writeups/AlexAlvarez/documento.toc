@@ -1,0 +1,19 @@
+\contentsline {section}{\numberline {1}Challenge 1: The cell phone keypad}{3}
+\contentsline {section}{\numberline {2}Challenge 2: The binary granny}{4}
+\contentsline {section}{\numberline {3}Challenge 3: The evil trader}{6}
+\contentsline {section}{\numberline {4}Challenge 4: 20 fast 20 furious}{7}
+\contentsline {section}{\numberline {5}Challenge 5: Time is never time again}{9}
+\contentsline {section}{\numberline {6}Challenge 6: Cross-stitched fonts}{10}
+\contentsline {section}{\numberline {7}Challenge 7: The "secure" password}{12}
+\contentsline {section}{\numberline {8}Challenge 8: The demented cloning machine}{14}
+\contentsline {section}{\numberline {9}Challenge 9: Il nomme della magnolia}{16}
+\contentsline {section}{\numberline {10}Challenge 10: Coding m00re and m00re}{17}
+\contentsline {section}{\numberline {11}Challenge 11: Descrambler}{19}
+\contentsline {section}{\numberline {12}Challenge 12: Three keys one cup}{21}
+\contentsline {section}{\numberline {13}Challenge 13: The crazy croupier}{22}
+\contentsline {section}{\numberline {14}Challenge 14: Nails}{24}
+\contentsline {section}{\numberline {15}Challenge 15: Newspaper code}{25}
+\contentsline {section}{\numberline {16}Challenge 16: Malware detector}{26}
+\contentsline {section}{\numberline {17}Challenge 17: The Solomonic pizza cut}{28}
+\contentsline {section}{\numberline {18}Challenge 18: SOP (Sheep Oriented Programming)}{29}
+\contentsline {section}{\numberline {19}Challenge 19: Find the algorithm}{30}

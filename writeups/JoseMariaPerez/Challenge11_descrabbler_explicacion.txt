@@ -1,0 +1,10 @@
+Explicación Challenge 11:
+
+	Para agilizar las búsquedas los conjuntos de letras se van a definir como un array de enteros, que representa una tabla char -> int donde el entero es la cantidad de veces que aparece el caracter en cada palabra. Se va a tratar con todos los caracteres en mayúsculas.
+	Asimismo, se define también una estructura CASO que almacena dos conjuntos de letras (tablero y propias), un entero que cuenta las letras que se pueden usar, la mejor palabra encontrada y su puntuación. Se va a trabajar con todos los casos al mismo tiempo. Para calcular el valor de las letras se define una tabla char-> int.
+	El programa va leyendo palabra a palabra de la lista, la transforma en un array de enteros y comprueba si es válida para alguno de los casos, y, si lo es, comprueba su puntuación, si la puntuación es mejor, actualiza la palabra y la puntuación del caso. Al final, para cada caso se imprime su palabra y putnuación
+
+	Para comprobar si es válida, para cada letra individual (si la palabra tiene 2 a, se comprueba sólo con 1) de la palabra original, se supone que está en el tablero y se comprueba si se puede formar el resto de la palabra con las letras de cada caso. Si se puede formar la palabra, se indica que a posteriori hay que comprobar la puntuación, que en ese momento se está calculando aún.
+	Cuando se ha terminado con todas las letras de la palabra, se comprueban las puntuaciones de los casos en los que se había marcado que se puede contruir la palabra, y en caso de que la puntuación sea mejor, se actualiza la palabra y la puntuación del caso.
+
+

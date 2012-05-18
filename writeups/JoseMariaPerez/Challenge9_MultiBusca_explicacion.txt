@@ -1,0 +1,16 @@
+Explicación Challenge 9
+
+
+	Se define una función hash para cada palabra muy sencilla, pero de gran ayuda: la función hash suma los valores ascii de cada letra de cada palabra, tiene la ventaja de que se puede ir calculando al vuelo.
+	En primer lugar se crea una lista con las palabras que hay que buscar y la cantidad de veces que hay que buscarlas, asimismo también se crea una lista con los hash de las palabras, y una estructura de datos para almacenar los resultados encontrados.
+	Mientras haya palabras que buscar, se procede de la siguiente forma:
+		-Se abre el documento en el que hay que buscar, mapeándolo en memoria (más rápido)
+		-Se buscan las palabras en el documento.
+
+	Para buscar las palabras en el documento se hace de la siguiente forma:
+		-Se recorre el texto, calculando el hash de lo que se va leyendo, la fila y el número de palabra en la fila. Cuando se encuentra un espacio , un salto de línea o el final del fichero, se ha encontrado una palabra,por lo que hay que comprobar si es una de las que buscamos, y tras eso, resetar los valores (si no quedan palabras que buscar, se termina la función).
+
+	Para comprobar si es una de las palabras que buscamos, buscamos en la lista de palabras a ver si coincide el hash, en caso de que coincida, se comprueba la totalidad de la palabra. Si es una de las palabras que se estaba buscando, se descuenta una unidad de la cantidad de veces que hay que encontrarla, y si entonces es 0, se guardan fila, columna y documento en la estructura de resultados y se borra el hash asociado. Esta función devuelve el número de palabras que quedan por encontrar, por lo que si no queda ninguna, se termina el programa.
+	Cabe destacar que la búsqueda se realiza de todas las palabras en paralelo.
+	También es conveniente destacar que a la hora de crear las palabras, tanto las originales como mientras se está leyendo, se convierten a minúsculas siempre.				
+

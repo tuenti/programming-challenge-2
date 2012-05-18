@@ -1,0 +1,3 @@
+-sheep.py -> Program that converts the Bee code to brainfuck
+-brainfuck.py -> Program that I get from internet to run brainfuck code
+-sol.py -> Program that generates the solution to the problem of straight cuts

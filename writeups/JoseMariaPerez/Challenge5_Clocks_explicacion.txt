@@ -1,0 +1,12 @@
+Explicación challenge5
+
+	Para calcular la diferencia de LEDS no es necesario calcular todos lo que se encienden en un reloj y restarle todos los que se encienden en el otro, por lo que creo una tabla que, en función del dígito, devuelve la diferencia de leds que se encienden entre los dos relojes desde el dígito anterior. Cabe destacar que el caso del 0 es especial, ya que puede llegar desde 2,3 y 5, ese caso especial está contemplado, para los tres números la cantidad de leds que cambian es distinta de desde 9, pero es la misma entre ellos, 2.
+	El reloj está definido por una cadena de 6 enteros, donde cada uno de ellos representa un dígito, también se define reloj como el número de segundos que han pasado desde 00:00:00
+	Nada más empezar, el programa crea una tabla con tantas entradas como segundos tiene un día, y el valor de cada entrada es la ganancia de leds desde 00:00:00 hasta el segundo. Esta tabla se crea con ayuda de una función que incrementa un reloj en 1 segundo y devuelve la ganancia de leds en ese segundo, teniendo en cuenta los casos especiales. Asimismo, se guarda la ganancia de leds en un día en una variable aparte.
+	Por último, el programa lee los datos de los casos, y, para cada caso, calcula la diferencia en días con las librerías de java, el número de segundos desde 000000 hasta la hora final y el número de segundos desde la hora inicial hasta el final del día. Una vez con estos valores, accede a la tabla creada en un principio y calcula la diferencia en leds con la fórmula:
+		numLedsDesde0[segundosHoraFin] + (numLedsDia-numLedsDesde0[segHoraInicio]) + (dias-1)*n
+umLedsDia;
+	Esto es, suma el número de leds hasta el día siguiente, el número de leds desde el principio del día hasta la hora final y el número de leds en un día por la cantidad de días, descontando 1 que se ha calculado ya.
+
+	La complejidad es O(1) por cada caso, ya que el grueso del cálculo se hace una única vez y se reutiliza entre los casos (calcular para todos los segundos del día)
+

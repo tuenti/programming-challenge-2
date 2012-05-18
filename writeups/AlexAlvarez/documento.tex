@@ -1,0 +1,202 @@
+\documentclass[english,12pt,a4paper]{article}
+% Ojo he aadido <<a4paper>> en las opciones
+\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
+\usepackage[dvips]{graphicx,psfrag,overpic,color} %Necesario para figuras
+\usepackage{latexsym} %Necesario para simbolos ampliados
+\usepackage{amssymb} %Necesario para simbolos AMS
+\usepackage{amsmath}%Necesario para simbolos AMS extra
+\usepackage{amsfonts}%Necesario para fuentes AMS extra
+\usepackage{amsthm}
+\usepackage{pstricks}  % since the dash is rendered by pstricks!
+\usepackage[postscript]{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[scriptsize,bf]{caption}
+\usepackage{listings}
+\usepackage{url}
+
+
+\renewcommand{\lstlistingname}{Code}
+
+\lstset{
+	numbers=left,
+	basicstyle=\scriptsize,
+	stepnumber=5,
+	numberstyle=\tiny,
+	language=C++,
+	keywordstyle=\color{Mahogany}\bfseries,
+	identifierstyle=\color{Black},
+	commentstyle=\itshape\tiny\bfseries
+}
+
+
+\begin{document}
+\renewcommand{\figurename}{Gr\'afica} 
+
+\title{Tuenti Programming Challenge 2: Solution Sketches}
+
+\author{Alex Alvarez Ruiz}
+
+
+\maketitle
+
+
+\bibliographystyle{unsrt}% citas numeradas en orden de citación
+\newpage \tableofcontents\newpage
+\sloppy
+\parskip=8pt
+
+\section{Challenge 1: The cell phone keypad}
+In this problem there are two different parts to solve. The first one is, given two characters, find the minimum time to go from the first character to the second one. The second part is just iterate proceeding as the statement says and using the values calculated before. As the second part is just a bit of coding, let's talk about the first part.
+
+With the times given, is easy to find a formula to answer this question in $O(1)$ time. A more general form is to see the keypad as a graph, where each key is a node connected to the neighbouring keys and each edge has as cost the time needed. Then, we are trying to solve a classical problem: All pair's minimum distance, which can be solved using Floyd-Warshall algorithm.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Floyd-Warshall}, label=lst:floyd]{code1.cc}
+
+\newpage
+\section{Challenge 2: The binary granny}
+The problem is given a number $0 \leq N \leq 10^{19}$, split it into two positive numbers $x,y$, such that $x + y = N$, maximizing the sum of the number of ones of $x$ and $y$ in base 2. This problem can be easily solved using dynamic programming. If we start with the least significant bit of $x$, a value for it implies exactly one possible value for the same bit in $y$. Then, we only need to remember the actual carry. This observation gives a dynamic programming with state $(position, carry)$.
+
+Let $bin(p)$ mean the value of the $p$-th bit of $N$. The recurrence is like that:
+\begin{itemize}
+\item $dp(p, c) = \max(2 + dp(p + 1, 1), dp(p + 1, 0)), ~~ \mathtt{if} ~~bin(p) = c$
+\item $dp(p, c) = 1 + dp(p + 1, 0), ~~ \mathtt{if} ~~ bin(p) = 1 ~~\mathtt{and} ~~c = 0$
+\item $dp(p, c) = 1 + dp(p + 1, 1), ~~ \mathtt{else}$
+\end{itemize}
+This gives us a $O(\log N)$ algorithm. The following code implements this algorithm.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to the second problem}, label=lst:second]{code2.cc}
+
+\newpage
+
+\section{Challenge 3: The evil trader}
+Let $a_i$ be the $i$-th number. We need to find $i,j$, $i < j$, $a_i < a_j$, with maximum $a_j - a_i$. A greedy approach solves in $O(N)$ time this problem, where $N$ is the size of the input. Just iterate over the sequence and keep the minimum value found previously and compare with the actual value to see if the difference is greater than the best found at this moment.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 3}, label=lst:third]{code3.cc}
+
+\newpage
+\section{Challenge 4: 20 fast 20 furious}
+A typical problem about cycle finding. The queue state can be determined by the first group, as they will always go in order, so we only have $G$ possible states. Then, iterate as the statement says until repeat one state (at most $G$ iterations) and apply this cycle in constant time as many times as possible. Then just iterate the remaining laps (at most $G$ - 1). 
+
+Each iteration could be done in constant time precalculating for each queue state how many groups enter in the race. This can be easily done in $O(G\log G)$ with a binary search. Thus, we can solve the problem in time $O(G\log G)$. It was not needed, but the $\log G$ factor can be avoided using an standard two-pointers' algorithm.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 4 in $O(G \log G)$}, label=lst:code4]{code4.cc}
+
+\newpage
+
+\section{Challenge 5: Time is never time again}
+The most difficult part of this problem is the implementation. The idea is to calculate the difference in one day, so you only need to calculate the initial day's difference, the last day's difference and add to it the number of days between them times the difference in one day.
+
+So first write some function to let you calculate the difference between two given times and use them to calculate the difference in one day: $2255477$. Then, take the first day given and finish it, calculating the difference with the same functions. Do the same (now from the beginning) with the last day. The trickier part is maybe to calculate how many days are between two dates. But there is a formula for that:
+
+\lstinputlisting[language=C++, frame=trBL, caption={Number of days between two dates}, label=lst:code5]{code5.cc}
+\newpage
+
+\section{Challenge 6: Cross-stitched fonts}
+One possible solution is binary search over the font, as it is a monotone function. For a fixed font, it is easy to check whether it fits. Once you have the optimal font, just calculate the answer using the formula described in the statement.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 6}, label=lst:code6]{code6.cc}
+\newpage
+
+\section{Challenge 7: The "secure" password}
+The key constraint to solve this problem is the following sentence: \textit{assuming that passwords do not contain repeated characters}. Consider the following directed graph:
+\begin{itemize}
+\item Create a node for each character in the subcodes.
+\item For each consecutive two characters in some subcode, create an edge from tre first character to the second.
+\end{itemize}
+It is trivial to see that a word is a solution if and only if it is a topological sorting of this graph. So simply backtrack over all the topological sortings of the graph.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 7}, label=lst:code7]{code7.cc}
+\newpage
+
+\section{Challenge 8: The demented cloning machine}
+The first thing to see is that we cannot generate the final string and calculate its MD5, because the string can be very large. My solution for this problem is divided into two parts. The first part is a dynamic programming to calculate the following: given a character and a series number, which string does it become in the end?
+
+Then, calculate with some library the MD5 of the string. To do this, let's iterate over the original characters and calculate the MD5 of its final string. Then just print the output.
+
+Some further optimizations can be done, but they make the code harder to implement. In my old laptop, this solution run in 24 seconds with the test and in 15 seconds (more or less) with the submit.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 8}, label=lst:code8]{code8.cc}
+\newpage
+
+\section{Challenge 9: Il nomme della magnolia}
+A very nice problem. I made three codes to solve it. The first one is to process the documents. It calculates for each word a vector of 800 positions where $v[i]$ counts how many times this word has appeared in the first $i$ documents. As there are only 214429 different words it's a pretty small file (my Debian says 432,7 MiB). But calculating the answer with this file is not instantaneous, so let's optimize a little more!
+
+Create a second code to read this file and create a second file containing each word and in which byte appears in the first file. This file is much smaller (3,9 MiB).
+
+Then we code the final solution. First of all, read the second file entirely and store this values in some structure. Then, for each word of the input, open the first file, move the pointer to the place wanted and read the 800 positions vector. Now we can do a binary search over the vector to see in which document will be the word we are looking for. Finally, just read this document until you find the word. As we are reading only one document at most per word, the answer to the testcases is instantaneous.
+
+\newpage
+
+\section{Challenge 10: Coding m00re and m00re}
+The first problem which is not algorithmic. But this is very easy. With the examples one can deduce that it is a stack-based language and that the operations are the following:
+\begin{itemize}
+\item Number: Push the number at the top of the stack.
+\item mirror: Changes the sign of the number at the top of the stack.
+\item breadandfish: Duplicates the number at the top of the stack.
+\item fire: Pop the number at the top of the stack.
+\item dance: Pop the two first elements and push them swapped.
+\item conquer: Modulus operation.
+\item \#: Multiplication operation.
+\item \$: Subtraction operation.
+\item \makeatletter @ : Addition operation.
+\item \&: Integer division operation.
+\item .: Print the number at the top of the stack.
+\end{itemize}
+The only important point is that there are not constraints, so a Big Integer library is essential (if your language does not handle them natively, as C++).
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 10}, label=lst:code10]{code10.cc}
+\newpage
+
+\section{Challenge 11: Descrambler}
+And we return to the algorithmic problems. Notice that the order of the letters do not affect to handle the word. So just consider words as vectors in $\mathbb{N}^{26}$, in which each position counts the number of times this letter appears in the word. As the number of words in the dictionary is small, iterate over it and for each word check if it can be played.
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 11}, label=lst:code11]{code11.cc}
+\newpage
+
+\section{Challenge 12: Three keys one cup}
+The first two keys are easy to find. The first one is in the QRs. The second one is in a comment inside the PNG file, you can see it with an hexadecimal editor. Then look at the keys! They are obviously MD5 hashes. If you crack them, you will have a revelation about the third key. The plain text of the first two keys is "courage" and "wisdom". As Zelda is pretty famous, just take the hash of "power" and it works :).
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 12}, label=lst:code12]{code12.cc}
+\newpage
+
+\section{Challenge 13: The crazy croupier}
+A beautiful problem about Group Theory. It is easy to see that the shuffle can be seen as a permutation of $S_n$ (the symmetric group). Let $\sigma$ be the permutation. They are asking us to find the minimum $k > 0$ such that $\sigma^k = Id$ (identity application). This by definition is the order of the permutation, and can be calculated representing $\sigma$ as disjoint cycles and then the answer is the least common multiple of the sizes of the cycles. This leads to a linear solution. Another time, it is necessary to use Big Integers.
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 13}, label=lst:code13]{code13.cc}
+\newpage
+
+\section{Challenge 14: Nails}
+Easy problem when you discover what to do. Simply apply Hamming (7,4) to decode the input and check for errors as the test says.
+
+\newpage
+
+\section{Challenge 15: Newspaper code}
+The image uses steganography to hide the answer. There are some invisible points under some of the letters. Once you find them, a revealing sentence tells you to print the 20th emirps.
+
+\newpage
+
+\section{Challenge 16: Malware detector}
+A strange problem, as it allows you to do different correct solutions. My solution was for each query calculate the mean of the inverses of the distances for each of the two sets. The inverse allows to benefit the nearest points. Then check which of the two means is greater.
+
+\lstinputlisting[language=C++, frame=trBL, caption={Solution to problem 16}, label=lst:code16]{code16.cc}
+\newpage
+
+\section{Challenge 17: The Solomonic pizza cut}
+A good geometric library is very useful to solve this problem. First, generate the vertexs of the polygons. It is easy if you have a function that lets you rotate vectors. Notice that if a solution exists, then exists a cut passing through the center and some vertex. So a simple solution due to the low constraints is just iterate over the points and for each cut, check if it is correct in linear time. There are better approaches. If $N$ is the total number of vertexs, a $O(N\log N)$ solution sorting the points by angle can be done, instead of a quadratic one.
+
+\newpage
+
+\section{Challenge 18: SOP (Sheep Oriented Programming)}
+Notice that sheeps do not even have fingers, so that about sheeps being the best programmers is just difficult to believe. As an open-minded person, take a sheep and let it your keyboard (an old one better) and you will check that it is true that sheeps do not make bugs, because your lovely plant attracts them more than a keyboard. So what to do? Check that the statement talks about other animals: cows, orangutans and fish. As cows are difficult to handle in a room and aquatic keyboards are expensive, take an orangutan to your room and show it this code. Its answer would be immediat: "Ook!". So take an Ook! interpreter and you will be asked to make a simple program whose solution is simply $\frac{n(n + 1)}{2} + 1$.
+
+\newpage
+
+\section{Challenge 19: Find the algorithm}
+First you can see that decoding both input and output in BASE64 produces an hexadecimal text. Now let's see the pattern. As the numbers in the input are very similar if you take them in groups of 8 characters, a logical move would be to look at the differences between them. Playing with it some time, you find out that the algorithm is the following:
+\begin{itemize}
+\item Calculate the difference between the actual block and the previous one (0 if it is the first).
+\item If the difference fits in 5 bits (is between -16 and 15) then put a 0 bit and the difference with 5 bits.
+\item Else put a 1 bit and the block number with 32 bits.
+\item Add 0s to the binary string until its length modulo 4 is 0.
+\item Convert it to hexadecimal.
+\end{itemize}
+\end{document}

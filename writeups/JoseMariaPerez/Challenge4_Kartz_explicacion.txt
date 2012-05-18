@@ -1,0 +1,12 @@
+Explicacion del Challenge 4
+	
+	En este reto, lo que hago es simular viajes hasta que sucede cualquiera de los siguientes casos:
+		-He simulado el caso completo, con lo que retorno los resultados
+		-He encontrado un ciclo en la simulación, con ciclo me refiero a una secuencia de pasajeros que sucede siempre en el mismo orden en la misma ronda, una vez se ha encontrado uno, a partir de él el resto de la simulación se repite.
+		Para buscar ciclos, se simula ronda tras ronda, anotando el índice del grupo en el que la ronda ha terminado. Cuando, tras ejecutar una serie de simulaciones, una de ellas coincide con otra, se ha encontrado un ciclo.
+		Una vez se ha conseguido el número 'estable' de personas por ronda, símplemente se ejecuntan las distintas rondas para ver el consumo.
+
+
+
+
+

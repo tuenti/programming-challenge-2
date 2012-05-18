@@ -1,0 +1,11 @@
+Explicación Challenge6
+
+	En este reto me olvido del mensaje, sólo voy a tratar con longitudes de palabras, añadiendo el 1 a la longitud de cada palabra, de esa forma tengo en cuenta los espacios al final de cada palabra, y hay que descontar 1 del número de columnas resultanda ya que la última palabra de una fila no tiene espacio después. Para cada caso, almaceno una lista de longitudes de palabras, el número de caracteres (incluyendo blancos añadidos) del mensaje, la mayor longitud de palabra, y las dimensiones en píxeles del trozo de tela.
+	Para calcular la mejor resolución, hago lo siguiente:
+		-El número menor de columnas de la matriz en la que hay que encajar el texto es la mayor longitud de una palabra., por lo que establezco que la mejor resolución encontrada es 0 eitero aumentando el número de columnas:
+			Lo primero es calcular la resolución horizontal (descontando la columna del final de línea) Si la resolución horizontal es menor que la mejor resolución calculada hasta ese momento, hemos terminado, ya que al aumentar el número de columnas de la matriz, sólo reducimos la resolución.
+			Después se calcula el número de filas que tendría la matriz, si no hay una configuración válida, seguimos iterando, si la hay válida, calculamos la resolución vertical, y comprobamos si la menor de ambas resoluciones es mayor que la mejor encontrada hasta el momento, en cuyo caso actualizamos. (se elige la menor entre las resoluciones horizontal y vertical porque el texto tiene que tener el mismo número de píxeles en vertical y horizontal por carácter, y tiene que caber en la tela)
+				Para calcular el número de filas, se intenta rellenar una matriz virtual con las longitudes, contando el número de filas necesarias, en esta función hay una mejora y es que la primera fila no se recalcula todas las veces, sino que, como la primera fila sólo aumenta, se guarda entre iteración e iteración para ahorrar recursos, y en cada iteración, si se puede, se amplía.
+
+
+

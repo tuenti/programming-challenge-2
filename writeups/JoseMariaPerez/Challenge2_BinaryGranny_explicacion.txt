@@ -1,0 +1,14 @@
+Explicación Challenge 2
+
+	En este caso, para la solución se ha aprovechado el hecho de que el computador use sistema de representación binaria, por lo que no hace falta transformar el número inicial. Teniendo en cuenta esto, cada dígito en binario del número inicial, empezando por la derecha (acarreo 0), se puede conseguir de la siguiente forma:
+	Si es 1, uno de los sumandos tiene que tener un 1 y el otro un 0, por lo que se añade un 1 a la cuenta de unos
+	Si es 0, se puede lograr de dos formas, con dos 0 (no nos interesa el caso), o con dos 1, en este caso hay que descontar el acarreo que se produce cuando ambos sumandos tienen un 1.
+
+	Para calcular la cantidad de unos, podría crear una máscara con la que ir extrayendo los dígitos en binario, pero es más práctico ir rotando el número obtenido. Para conseguir la cantidad de 1, inicializo una variable para contarlos a 0 e itero mientras el número sea >0 la siguiente operación:
+	-Se extrae el último dígito
+		-Si es 1, aumento la cuenta en 1 y desplazo N una posición hacia la derecha
+		-Si es 0, aumento la cuenta en 2, descuento el acarreo, y desplazo N una posición a la derecha.
+
+	La complejidad de este método es O(n), donde n es el número de dígitos significativos que la entrada tiene en binario.
+
+

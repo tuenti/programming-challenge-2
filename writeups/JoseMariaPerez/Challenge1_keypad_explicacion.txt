@@ -1,0 +1,19 @@
+Explicación Challenge1:
+
+	En este problema he buscado crear una estructura de datos que permita saber, teniendo la letra, la tecla a la que pertenece dicha letra, otra estructura de datos que permita saber, conociendo la tecla, su fila y su columna, y otra que dado un caracter nos diga cuántas veces hay que pulsar la tecla, después de la primera, para obtener el caracter sin que haga falta buscarlas cada vez que se recibe un caracter por la entrada. Las teclas se han definido como enteros.
+	Las estructuras de datos elegidas han sido tablas: Una tabla de char-> tecla (utilizando el caracter como índice) y otras dos tablas tecla -> fila y tecla-> columna y una útlima tabla char->pulsaciones_extra. Los tiempos de búsqueda en estas tablas son constantes.
+	Estas tablas se construyen antes de empezar a ejecutar los casos a partir de una definición de un keypad.
+
+	Lo siguiente que hago es crear una función que, dadas dos teclas, retorne el tiempo que se tarda en ir de la primera a la segunda y pulsarla una vez.
+	Esta función calcula la distancia en filas y columnas entre las dos teclas, decide cuántos movimientos se realizan en diagonal (min (dis_filas,dis_columnas)), multiplica las distancias obtenidas por el tiempo de superar esa distancia, suma el tiempo de una pulsación y lo devuelve. Si la tecla destino y la tecla origen son la misma, devuelve el tiempo de espera para pulsar la misma tecla sumado al tiempo de una pulsación.
+
+	Por último, el main lo que hace es ir leyendo las líneas por la entrada estándar y procesar el string de la siguiente forma:
+		-Se inicializa una variable capsLock a false, indica si el siguiente caracter será o no una mayúscula, una variable tiempo a 0 y una variable teclaActual a 0 también.
+		-Para cada caracter del string, en orden:
+			-Se comprueba si es un caracter válido, en su caso, se obtiene la tecla en la que está el carácter.
+			-Si es una mayúscula y no tenemos CapsLock, o es minúscula y tenemos CapsLock, calculamos el tiempo de mover el dedo hasta la tecla de CapsLock desde la tecla actual y lo sumamos, establecemos la tecla actual como CapsLock y actualizamos el estado en la variable capsLock.
+			-Calculamos el tiempo necesario para mover el dedo hasta la tecla del caracter y le sumamos el tiempo necesario para rotar entre todos los caracteres hasta encontrar el que buscamos.
+			-Por último, actualizamos teclaActual a la nueva tecla.
+		-Una vez hemos terminado con el string, imprimimos la variable tiempo.
+	
+	La complejidad de este método es O(n) para cada caso, donde n es el número de caracteres del caso.

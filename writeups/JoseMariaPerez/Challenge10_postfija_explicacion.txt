@@ -1,0 +1,8 @@
+Explicación Challenge 10:
+
+La explicación de esta souclión es sencilla:
+	Se crea una pila donde se van insertando los números, y siempre que se recibe una operación, se realiza con los valores superiores de la pila, de forma que al terminar las operaciones en la cima de la pila queda el resultado.
+	Lo que hay que destacar es que no se comprueban strings, sino sólo los primeros caracteres (no es necesario comprobar más), una vez leído un caracter de una palabra se avanza hasta que se ha leído toda la palabra.
+	Si no es un caracter de una orden, se supone que es de un número, que se va componiendo caracter a caracter hasta que no se lee otro número, entonces se apila.
+
+

@@ -1,0 +1,8 @@
+Explicación Challenge 3:
+
+	En este probelma lo primero que hago es definir una estructura de datos "DIF", esta estructura de datos tiene los campos menor, instantemenor, mayor, instantemayor y diferencia, y está preparada para crear una lista doblemente enlazada con elementos de este tipo. La lista contendrá las diferencias ordenadas por instante creciente en el que sucede el valor mínimo de la diferencia.
+	Cuando se lee un dato, éste va a ser posterior en el tiempo a todos los anteriores, por lo que se comprueban los máximos de todas las diferencias, actualizando los máximos si corresponden, si hay varios que han sido modificados (se han actualizado sus máximos), se deja sólo el que tiene la mayor diferencia y el resto se borran. Si no se ha modificado ninguna diferencia, quiere decir que el dato leído no es mayor que ninguno de los anteriores, pero al ser posterior en el tiempo, no importa si es menor, por lo que se crea una nueva diferencia cuyos máximo y mínimo son el dato leído (diferencia 0), para tener en cuenta las diferencias que empiecen en dicho valor.
+	Una vez se han leído todos los datos, se comprueba cuál es la mejor de todas las diferencias obtenidas y se imprimen los valores.
+
+	La complejidad en el peor caso es la misma que mirando todas las combinaciones posibles O(n²), pero en el resto de casos es mejor, ya que se van eliminando las diferencias que quedan "absorbidas" dentro de otras.
+

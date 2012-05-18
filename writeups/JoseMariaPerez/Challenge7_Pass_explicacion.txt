@@ -1,0 +1,16 @@
+Explicación Challenge 7
+
+	Esta solucion se ha diseñado para efectuar una búsqueda recursiva, el main lo primero que hace es generar un alfabeto ordenado de las letras que hay en la entrada, y, mientras queden letras en el alfabeto (se van eliminando las usadas), se procede recursivamente de la siguiente forma:
+	-Si no quedan letras en el alfabeto, imprimir palabra
+	-Para cada letra del alfabeto, en orden:
+		Buscamos que aparece siempre en la primera posición de una subcadena (las entradas) cuando aparece en una subcadena
+		Si no está siempre en la primera posición, miramos la siguiente letra.
+		-Añadimos la letra a la palabra
+		-Eliminamos la letra de las subcadenas
+		-Eliminamos la letra del alfabeto
+
+	Sobre este diseño se han realizado una serie de mejoras:
+		-En vez de borrar las letras de las subcadenas, se utiliza una cadena de índices donde empiezan las subcadenas para cada función, esto es mejor porque implica no copiar strings y es posible porque sólo se elimina una letra cuando es la primera en todas las subcadenas en las que aparece
+		-La palabra es un buffer creado en el main, una vez que se imprime, se reutiliza en otras ramas del desarrollo de la recursividad.
+
+

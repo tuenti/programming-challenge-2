@@ -1,0 +1,13 @@
+Explicación Challenge 8:
+
+	Esta solución se divide en dos partes: 
+Unificar todas las trasnformaciones
+	Una transformación es una relación char->string en una ronda de clonación. Para hacerlo más rápido lo que se hace es unificar todas las trasnformaciones sucesivas en una única transformación, para ello se hace uso de los siguientes conceptos:
+	-Los strings son en realidad cadenas enlazadas de caracteres, así se pueden unir con mucha más facilidad
+	-La tabla de transformaciones está indexada por el caracter, de forma que el tiempo de búsqueda O(1)
+	-Los strings tienen una cabecera '>', que sirve para almacenar strings vacíos, se elimina al usar el tostring() en el caracter enlazado.
+
+Aplicar las transformaciones al texto y hacer el md5
+	Para cada caracter del texto, se busca si tiene una transformación (si no existe, se asume que la transformación es el propio caracter), si la tiene, se calcula el string y de ahí, los bytes para el md5 y se guardan en una caché para no tener que volver a calcularlos de nuevo, efectivamente este paso trasnforma char->byte[]
+	Una vez tenemos los bytes que representan cada caracter, se introducen en el md5 y, una vez se ha leído todo el mensaje, se obtiene el resultado del md5 y se imprime por pantalla.
+
